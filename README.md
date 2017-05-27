@@ -23,26 +23,31 @@ scraper writing for very simple tasks like extraction of external urls or simple
 
 ## Examples
 
-```python3 lazyscraper.py extract --url http://government.ru/en/gov/persons/ --xpath "//img[@class='photo']" --fieldnames src,srcset,alt --absolutize True --output gov_persons.csv --format csv
+```
+python3 lazyscraper.py extract --url http://government.ru/en/gov/persons/ --xpath "//img[@class='photo']" --fieldnames src,srcset,alt --absolutize True --output gov_persons.csv --format csv
 ```
 Extracts list of photos and names of Russian government ministers and outputs it to "gov_persons.csv"
 
-```python3 lazyscraper.py use --pattern simpleul --nodeclass 'departments col col__wide' --url http://government.ru/en/ministries  --absolutize True
+```
+python3 lazyscraper.py use --pattern simpleul --nodeclass 'departments col col__wide' --url http://government.ru/en/ministries  --absolutize True
 ```
 Extracts list of ministries from Russian government website using pattern "simpleul" and from UL tag with class "departments col col__wide" and outputs absolutized urls.
 
-```python3 lazyscraper.py use --pattern simpleopt --url http://nalog.ru
+```
+python3 lazyscraper.py use --pattern simpleopt --url http://nalog.ru
 ```
 Extracts list of territorial organizations urls from Russian tax service website using pattern "simpleopt".
 
-```python3 lazyscraper.py use --pattern getforms --url http://nalog.ru
+```
+python3 lazyscraper.py use --pattern getforms --url http://nalog.ru
 ```
 Extracts all forms from Russian tax service website using pattern "getforms". Returns JSON with each form and each button, input and select
 
 
-```python3 lazyscraper.py extract --url http://roskazna.ru --xpath "//ul[@class='site-list']/li/a" --fieldnames href | csvcut -c 2 | awk -F/ '{print $3}'
 ```
-Extracts list of websites urls of Russian Federal Treasury and uses awk to extract domains
+python3 lazyscraper.py extract --url http://roskazna.ru --xpath "//ul[@class='site-list']/li/a" --fieldnames href | csvcut -c 2 | awk -F/ '{print $3}'
+```
+Extracts list of websites urls of Russian Federal Treasury and uses awk to extract domains.
 
 ##Requirements
 * Python3 https://www.python.org
