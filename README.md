@@ -45,7 +45,7 @@ Extracts all forms from Russian tax service website using pattern "getforms". Re
 
 
 ```
-python3 lazyscraper.py extract --url http://roskazna.ru --xpath "//ul[@class='site-list']/li/a" --fieldnames href | csvcut -c 2 | awk -F/ '{print $3}'
+python3 lazyscraper.py extract --url http://roskazna.ru --xpath "//ul[@class='site-list']/li/a" --fieldnames href | awk -F/ '{print $3}'
 ```
 Extracts list of websites urls of Russian Federal Treasury and uses awk to extract domains.
 
