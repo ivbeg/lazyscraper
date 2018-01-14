@@ -1,0 +1,1 @@
+lscraper.py gettable --url "https://declaration.rostrud.ru/declaration/index" --pagekey page --pagerange 1,-1,1,50 --output declaration.csv
