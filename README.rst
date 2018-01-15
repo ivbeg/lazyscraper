@@ -22,33 +22,33 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  extract   Extract data with xpath
-  gettable  Extracts table with data from html
-  use       Uses predefined pattern to extract page data
+* extract   Extract data with xpath
+* gettable  Extracts table with data from html
+* use       Uses predefined pattern to extract page data
 
 Examples
 ========
 
 Extracts list of photos and names of Russian government ministers and outputs it to "gov_persons.csv"
 
->>> python lscraper.py extract --url http://government.ru/en/gov/persons/ --xpath "//img[@class='photo']" --fieldnames src,srcset,alt --absolutize True --output gov_persons.csv --format csv
+python lscraper.py extract --url http://government.ru/en/gov/persons/ --xpath "//img[@class='photo']" --fieldnames src,srcset,alt --absolutize True --output gov_persons.csv --format csv
 
 Extracts list of ministries from Russian government website using pattern "simpleul" and from UL tag with class "departments col col__wide" and outputs absolutized urls.
 
->>> python lscraper.py use --pattern simpleul --nodeclass "departments col col__wide" --url http://government.ru/en/ministries  --absolutize True
+python lscraper.py use --pattern simpleul --nodeclass "departments col col__wide" --url http://government.ru/en/ministries  --absolutize True
 
 
 Extracts list of territorial organizations urls from Russian tax service website using pattern "simpleopt".
 
->>> python lscraper.py use --pattern simpleopt --url http://nalog.ru
+python lscraper.py use --pattern simpleopt --url http://nalog.ru
 
 Extracts all forms from Russian tax service website using pattern "getforms". Returns JSON with each form and each button, input and select
 
->>> python lscraper.py use --pattern getforms --url http://nalog.ru
+python lscraper.py use --pattern getforms --url http://nalog.ru
 
 Extracts list of websites urls of Russian Federal Treasury and uses awk to extract domains.
 
->>> python lscraper.py extract --url http://roskazna.ru --xpath "//ul[@class='site-list']/li/a" --fieldnames href | awk -F/ '{print $3}'
+python lscraper.py extract --url http://roskazna.ru --xpath "//ul[@class='site-list']/li/a" --fieldnames href | awk -F/ '{print $3}'
 
 How to use library
 ==================
