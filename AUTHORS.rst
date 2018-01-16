@@ -7,4 +7,3 @@ Committers
 ----------
 
 * Ivan Begtin
-* Vsevolod Oparin
