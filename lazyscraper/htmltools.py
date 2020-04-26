@@ -9,12 +9,12 @@ def table_to_dict(node, strip_lf=True):
         rows = node.xpath('./tr')
     for row in rows:
         cells = []
-        for cell in row.xpath('./td'):
+        for cell in row.xpath('(./td|./th)'):
             inner_tables = cell.xpath('./table')
             if len(inner_tables) < 1:
-                text = u' '.join(cell.itertext()) #cell.text_content()
+                text = ' '.join(cell.itertext()) #cell.text_content()
                 if strip_lf:
-                    text = text.replace(u'\r',u' ').replace(u'\n', u' ').strip()
+                    text = text.replace('\r',u' ').replace('\n', u' ').strip()
                 cells.append(text)
             else:
                 cells.append([table_to_dict(node, strip_lf) for t in inner_tables])

@@ -127,7 +127,7 @@ def cli3():
 @click.option('--output', default=None, help='Output filename')
 def gettable(url, nodeid, nodeclass, fieldnames, format, pagekey, pagerange, output):
     """Extracts table with data from html"""
-    findata = get_table(url, nodeid, nodeclass, fieldnames, pagekey, pagerange)
+    findata = get_table(url, nodeid, nodeclass, pagekey, pagerange)
 
     if output:
         io = open(output, 'w', encoding='utf8')

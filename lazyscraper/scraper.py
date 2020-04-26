@@ -206,7 +206,7 @@ def get_table(url, nodeid=None, nodeclass=None, pagekey=False, pagerange=False):
             else:
                 items = []
 
-            current += 1
+            current += step
             if pagesize != -1 and len(items) < pagesize:
                 logging.info('Breaking loop. %d vs %d' % (len(items), pagesize))
                 break
