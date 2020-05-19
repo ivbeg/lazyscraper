@@ -20,7 +20,7 @@ import ssl
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
-def get_cached_post(url, postdata, host='127.0.0.1', port=11211):
+def get_cached_post(url, postdata, host=None, port=11211, agent=DEFAULT_USER_AGENT):
     """Returns url data from url with post request"""
     servers = ["%s:%d" % (host, port)]
     m = hashlib.sha256()
@@ -32,32 +32,32 @@ def get_cached_post(url, postdata, host='127.0.0.1', port=11211):
 #    if c_data:
 #        data = decompress(c_data)
 #    else:
-    r = requests.post(url, postdata)
+    r = requests.post(url, postdata, headers={'User-Agent' : agent})
     data = r.text
 #        client.set(key, compress(data))
     hp = lxml.etree.HTMLParser()
     root = lxml.html.fromstring(data, parser=hp)
     return root
 
-def get_cached_url(url, timeout=DEFAULT_CACHE_TIMEOUT, host='127.0.0.1', port=11211):
+def get_cached_url(url, timeout=DEFAULT_CACHE_TIMEOUT, host=None, port=11211, agent=DEFAULT_USER_AGENT):
     """Returns url data from url or from local memcached"""
-    servers = ["%s:%d" % (host, port)]
-    m = hashlib.sha256()
-    m.update(url.encode('utf8'))
-    key = m.hexdigest()
-    try:
-        client = Client(servers)
-        c_data = client.get(key)
-    except NameError as ex:
-        client = None
-        c_data = None
+    c_data = None
+    client = None
+    if host is not None:
+        servers = ["%s:%d" % (host, port)]
+        m = hashlib.sha256()
+        m.update(url.encode('utf8'))
+        key = m.hexdigest()
+        try:
+            client = Client(servers)
+            c_data = client.get(key)
+        except NameError as ex:
+            pass
     if c_data:
         data = decompress(c_data)
     else:
-        o = requests.get(url)	
-#        o = urlopen(url)
-        rurl = o.url
-        if client:
+        o = requests.get(url, headers={'User-Agent' : agent})
+        if client is not None:
             client.set(key, compress(o.text))
     hp = lxml.etree.HTMLParser()
     root = lxml.html.fromstring(o.text, parser=hp)

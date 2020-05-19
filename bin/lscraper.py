@@ -24,7 +24,7 @@ try:
 except:
     pass
 
-from lazyscraper.consts import DEFAULT_FIELDS
+from lazyscraper.consts import DEFAULT_FIELDS, DEFAULT_USER_AGENT
 from lazyscraper.scraper import  use_pattern, extract_data_xpath, get_table
 from lazyscraper.patterns import PATTERNS
 
@@ -32,6 +32,7 @@ from lazyscraper.patterns import PATTERNS
 logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         level=logging.DEBUG)
+
 
 
 
@@ -118,6 +119,7 @@ def cli3():
 
 @cli3.command()
 @click.option('--url', default='url', help='URL to parse')
+@click.option('--agent', default=DEFAULT_USER_AGENT, help='User agent')
 @click.option('--nodeid', default=None, help='Node id in html')
 @click.option('--nodeclass', default=None, help='Node "class" in html')
 @click.option('--fieldnames', default=None, help='Fieldnames. If not set, default names used')
@@ -125,9 +127,9 @@ def cli3():
 @click.option('--pagekey', default=False, help='Pagination url parameter')
 @click.option('--pagerange', default=False, help='Pagination range as start,end,step, like "1,24,1"')
 @click.option('--output', default=None, help='Output filename')
-def gettable(url, nodeid, nodeclass, fieldnames, format, pagekey, pagerange, output):
+def gettable(url, agent, nodeid, nodeclass, fieldnames, format, pagekey, pagerange, output):
     """Extracts table with data from html"""
-    findata = get_table(url, nodeid, nodeclass, pagekey, pagerange)
+    findata = get_table(url, nodeid, nodeclass, pagekey, pagerange, agent=agent)
 
     if output:
         io = open(output, 'w', encoding='utf8')

@@ -147,7 +147,7 @@ def use_pattern(url, pattern, nodeid=None, nodeclass=None, fieldnames=None, abso
     return findata
 
 
-def get_table(url, nodeid=None, nodeclass=None, pagekey=False, pagerange=False):
+def get_table(url, nodeid=None, nodeclass=None, pagekey=False, pagerange=False, agent=None):
     """Extracts table with data from html
      :param url:
          HTML webpage url
@@ -169,7 +169,7 @@ def get_table(url, nodeid=None, nodeclass=None, pagekey=False, pagerange=False):
      :rtype: :class:`array`."""
 
     if pagekey is False:
-        root = get_cached_url(url)
+        root = get_cached_url(url, agent=agent)
         tree = root.getroottree()
         if nodeclass:
             xfilter = "//table[@class='%s']" % (nodeclass)

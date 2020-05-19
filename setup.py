@@ -10,7 +10,7 @@ open_as_utf = lambda x: io.open(x, encoding='utf-8')
 readme = re.sub(r':members:.+|..\sautomodule::.+|:class:|:func:', '', open_as_utf('README.rst').read())
 readme = re.sub(r'`Settings`_', '`Settings`', readme)
 readme = re.sub(r'`Contributing`_', '`Contributing`', readme)
-history = re.sub(r':mod:|:class:|:func:', '', open_as_utf('HISTORY.rst').read())
+#history = re.sub(r':mod:|:class:|:func:', '', open_as_utf('HISTORY.rst').read())
 
 
 
@@ -18,7 +18,7 @@ setup(
     name='lazyscraper',
     version=__version__,
     description="Lazy simple command line tool, a swiss knife for scraper writers. Automates scraping so much as possible",
-    long_description=readme + '\n\n' + history,
+    long_description=readme + '\n\n',
     author='Ivan Begtin',
     author_email='ivan@begtin.tech',
     url='https://github.com/ivbeg/lazyscraper',
