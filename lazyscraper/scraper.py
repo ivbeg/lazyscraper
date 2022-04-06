@@ -13,8 +13,8 @@ from .patterns import  PATTERNS
 logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         level=logging.DEBUG)
-
-def extract_data_xpath(url, filename, xpath, fieldnames=None, absolutize=False, post=None, pagekey=False, pagerange=False):
+ 
+def extract_data_xpath(url, filename=None, xpath=None, fieldnames=None, absolutize=False, post=None, pagekey=False, pagerange=False):
     """Extract data with xpath
 
     :param url:
