@@ -41,7 +41,8 @@ def cli1():
     pass
 
 @cli1.command()
-@click.option('--url', default='url', help='URL to parse')
+@click.option('--url', default=None, help='URL to parse')
+@click.option('--localfile', default=None, help='Path to filename')
 @click.option('--xpath', default='//a', help='Xpath')
 @click.option('--fieldnames', default=None, help='Fieldnames. If not set, default names used')
 @click.option('--absolutize', default=False, help='Absolutize urls')
@@ -50,10 +51,10 @@ def cli1():
 @click.option('--pagerange', default=False, help='Pagination range as start,end,step, like "1,24,1"')
 @click.option('--format', default='text', help='Output format')
 @click.option('--output', default=None, help='Output filename')
-def extract(url, xpath, fieldnames, absolutize, post, pagekey, pagerange, format, output):
+def extract(url, localfile, xpath, fieldnames, absolutize, post, pagekey, pagerange, format, output):
     """Extract data with xpath"""
     fields = fieldnames.split(',') if fieldnames else DEFAULT_FIELDS
-    data = extract_data_xpath(url, xpath, fieldnames, absolutize, post, pagekey, pagerange)
+    data = extract_data_xpath(url, localfile, xpath, fieldnames, absolutize, post, pagekey, pagerange)
     if output:
         io = open(output, 'w', encoding='utf8')
     else:
@@ -154,5 +155,3 @@ def gettable(url, agent, nodeid, nodeclass, fieldnames, format, pagekey, pageran
 
 cli = click.CommandCollection(sources=[cli1, cli2, cli3])
 
-if __name__ == '__main__':
-    cli()

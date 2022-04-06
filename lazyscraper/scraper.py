@@ -6,7 +6,7 @@ from urllib.parse import urljoin
 
 from .consts import *
 from .htmltools import taglist_to_dict, table_to_dict
-from .urltools import get_cached_url, get_cached_post
+from .urltools import get_cached_url, get_cached_post, get_from_file
 from .patterns import  PATTERNS
 
 #logging.getLogger().addHandler(logging.StreamHandler())
@@ -14,7 +14,7 @@ logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         level=logging.DEBUG)
 
-def extract_data_xpath(url, xpath, fieldnames=None, absolutize=False, post=None, pagekey=False, pagerange=False):
+def extract_data_xpath(url, filename, xpath, fieldnames=None, absolutize=False, post=None, pagekey=False, pagerange=False):
     """Extract data with xpath
 
     :param url:
@@ -32,6 +32,9 @@ def extract_data_xpath(url, xpath, fieldnames=None, absolutize=False, post=None,
     :param post:
         If True use POST for HTTP requests
     :type post: bool
+
+
+
     :param pagekey:
         Key of the page listing. GET or POST parameter
     :type pagekey: str|unicode
@@ -43,16 +46,20 @@ def extract_data_xpath(url, xpath, fieldnames=None, absolutize=False, post=None,
     :return: Returns array of extracted values
     :rtype: :class:`array`."""
 
+
     fields = fieldnames.split(',') if fieldnames else DEFAULT_FIELDS
     data = []
     if pagekey is False:
-        if post:
-            root = get_cached_post(url)
+        if url:
+            if post:
+                root = get_cached_post(url)
+            else:
+                root = get_cached_url(url)
         else:
-            root = get_cached_url(url)
-        tree = root.getroottree()
-        tags = tree.xpath(xpath)
-        data = taglist_to_dict(tags, fields)
+            root =  get_from_file(filename      )
+            tree = root.getroottree()
+            tags = tree.xpath(xpath)
+            data = taglist_to_dict(tags, fields)
     else:
         start, end, step, pagesize = map(int, pagerange.split(','))
 #        for i in range(start, end, step):

@@ -28,7 +28,11 @@ setup(
         'lxml',
         'click'
     ],
-    scripts=['bin/lscraper.py'],
+    entry_points={
+        'console_scripts': [
+            'lscraper = lazyscraper.__main__:main',
+        ],
+    },
     license="BSD",
     zip_safe=False,
     keywords='scraping lazy lazy-scraping htmlpatterns',

@@ -32,10 +32,10 @@ def get_cached_post(url, postdata, host=None, port=11211, agent=DEFAULT_USER_AGE
 #    if c_data:
 #        data = decompress(c_data)
 #    else:
-    r = requests.post(url, postdata, headers={'User-Agent' : agent})
+    r = requests.post(url, postdata, headers={'User-Agent' : agent}, verify=False)
     data = r.text
 #        client.set(key, compress(data))
-    hp = lxml.etree.HTMLParser()
+    hp = lxml.etree.HTMLParser(encoding='utf8')
     root = lxml.html.fromstring(data, parser=hp)
     return root
 
@@ -56,9 +56,18 @@ def get_cached_url(url, timeout=DEFAULT_CACHE_TIMEOUT, host=None, port=11211, ag
     if c_data:
         data = decompress(c_data)
     else:
-        o = requests.get(url, headers={'User-Agent' : agent})
+        o = requests.get(url, headers={'User-Agent' : agent}, verify=False)
         if client is not None:
             client.set(key, compress(o.text))
-    hp = lxml.etree.HTMLParser()
-    root = lxml.html.fromstring(o.text, parser=hp)
+    hp = lxml.etree.HTMLParser(encoding='utf8')
+    root = lxml.html.fromstring(o.content, parser=hp)
+    return root
+
+
+def get_from_file(filename, encoding='utf-8'):
+    """Returns parsed data from file"""
+    f = open(filename, 'r', encoding=encoding)
+    hp = lxml.etree.HTMLParser(encoding='utf8')
+    root = lxml.html.fromstring(f.read(), parser=hp)
+    f.close()
     return root
