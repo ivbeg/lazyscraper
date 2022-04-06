@@ -50,16 +50,16 @@ def extract_data_xpath(url, filename=None, xpath=None, fieldnames=None, absoluti
     fields = fieldnames.split(',') if fieldnames else DEFAULT_FIELDS
     data = []
     if pagekey is False:
-        if url:
+        if url is not None:
             if post:
                 root = get_cached_post(url)
             else:
                 root = get_cached_url(url)
         else:
             root =  get_from_file(filename      )
-            tree = root.getroottree()
-            tags = tree.xpath(xpath)
-            data = taglist_to_dict(tags, fields)
+        tree = root.getroottree()
+        tags = tree.xpath(xpath)
+        data = taglist_to_dict(tags, fields)
     else:
         start, end, step, pagesize = map(int, pagerange.split(','))
 #        for i in range(start, end, step):
