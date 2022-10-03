@@ -14,7 +14,7 @@ logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         level=logging.DEBUG)
  
-def extract_data_xpath(url, filename=None, xpath=None, fieldnames=None, absolutize=False, post=None, pagekey=False, pagerange=False):
+def extract_data_xpath(url, filename=None, xpath=None, fieldnames=None, absolutize=False, post=None, pagekey=None, pagerange=None):
     """Extract data with xpath
 
     :param url:
@@ -49,7 +49,7 @@ def extract_data_xpath(url, filename=None, xpath=None, fieldnames=None, absoluti
 
     fields = fieldnames.split(',') if fieldnames else DEFAULT_FIELDS
     data = []
-    if pagekey is False:
+    if pagekey is None:
         if url is not None:
             if post:
                 root = get_cached_post(url)

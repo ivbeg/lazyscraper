@@ -47,8 +47,8 @@ def cli1():
 @click.option('--fieldnames', default=None, help='Fieldnames. If not set, default names used')
 @click.option('--absolutize', default=False, help='Absolutize urls')
 @click.option('--post', default=False, help='Use post request')
-@click.option('--pagekey', default=False, help='Pagination url/post parameter')
-@click.option('--pagerange', default=False, help='Pagination range as start,end,step, like "1,24,1"')
+@click.option('--pagekey', default=None, help='Pagination url/post parameter')
+@click.option('--pagerange', default=None, help='Pagination range as start,end,step, like "1,24,1"')
 @click.option('--format', default='text', help='Output format')
 @click.option('--output', default=None, help='Output filename')
 def extract(url, localfile, xpath, fieldnames, absolutize, post, pagekey, pagerange, format, output):
@@ -84,8 +84,8 @@ def cli2():
 @click.option('--fieldnames', default=None, help='Fieldnames. If not set, default names used')
 @click.option('--absolutize', default=False, help='Absolutize urls')
 @click.option('--format', default='text', help='Output format')
-@click.option('--pagekey', default=False, help='Pagination url parameter')
-@click.option('--pagerange', default=False, help='Pagination range as start,end,step, like "1,24,1"')
+@click.option('--pagekey', default='', help='Pagination url parameter')
+@click.option('--pagerange', default=None, help='Pagination range as start,end,step, like "1,24,1"')
 @click.option('--output', default=None, help='Output filename')
 def use(url, pattern, nodeid, nodeclass, fieldnames, absolutize, format, pagekey, pagerange, output):
     """Uses predefined pattern to extract page data"""
@@ -125,8 +125,8 @@ def cli3():
 @click.option('--nodeclass', default=None, help='Node "class" in html')
 @click.option('--fieldnames', default=None, help='Fieldnames. If not set, default names used')
 @click.option('--format', default='text', help='Output format')
-@click.option('--pagekey', default=False, help='Pagination url parameter')
-@click.option('--pagerange', default=False, help='Pagination range as start,end,step, like "1,24,1"')
+@click.option('--pagekey', default=None, help='Pagination url parameter')
+@click.option('--pagerange', default='1,1,1', help='Pagination range as start,end,step, like "1,24,1"')
 @click.option('--output', default=None, help='Output filename')
 def gettable(url, agent, nodeid, nodeclass, fieldnames, format, pagekey, pagerange, output):
     """Extracts table with data from html"""
