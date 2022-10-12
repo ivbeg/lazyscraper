@@ -175,7 +175,7 @@ def get_table(url, nodeid=None, nodeclass=None, pagekey=False, pagerange=False, 
      :return: Returns array of extracted values
      :rtype: :class:`array`."""
 
-    if pagekey is False:
+    if pagekey is None:
         root = get_cached_url(url, agent=agent)
         tree = root.getroottree()
         if nodeclass:
